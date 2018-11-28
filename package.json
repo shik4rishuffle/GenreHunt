@@ -7,9 +7,10 @@
   "scripts": {
     "dev:lint": "eslint --ext .js,.vue src",
     "dev:lint:fix": "eslint --ext .js,.vue src --fix",
-    "dev:build": "node build/build.js",
+    "prod:build": "node build/build.js",
     "dev:compile": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "dev": "run-s dev:* -l"
+    "dev": "run-s dev:* -l",
+    "prod": "run-s prod:* -l"
   },
   "dependencies": {
     "vue": "^2.5.2",
@@ -60,6 +61,8 @@
     "sass-loader": "^7.1.0",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
+    "stylelint": "^9.9.0",
+    "stylelint-webpack-plugin": "^0.10.5",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
     "vue-loader": "^13.3.0",

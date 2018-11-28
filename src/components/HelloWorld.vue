@@ -16,10 +16,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.center-content{
-  text-align: center;
-}
+<style lang="scss" scoped>
 h1, h2 {
   font-weight: normal;
 }
