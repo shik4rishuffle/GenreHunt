@@ -39,3 +39,4 @@ Thumbs.db
 # specific folders #
 ###################
 node_modules
+dist
