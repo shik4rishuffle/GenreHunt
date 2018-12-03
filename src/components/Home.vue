@@ -8,7 +8,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-5">
-        <input class="genre--search-bar" type="text" placeholder="Search for a genre..." v-model="searchEntry" @change="searchGenres">
+        <input class="genre--search-bar" type="text" placeholder="Search for a genre..." v-model="search">
       </div>
     </div>
     <div class="row search-btns">
@@ -17,51 +17,34 @@
       <div class="col-3 search-btns--btn"><h1>Mix Challenge</h1></div>
     </div>
     <div class="genre--container row">
-      <div v-for="data in genreJson" class="genre--square col-2">
-        <h1 class="h1">{{data.name}}</h1>
+      <div v-randomColor class="genre--square col-2" v-for="genre in filteredGenres" v-bind:key="genre.name">
+        <h1 class="h1">{{genre.name}}</h1>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// random color picker
-import json from '../lib/genres.json'
-
-window.onload = function (e) {
-  const genreSquares = document.getElementsByClassName('genre--square')
-  let usedColors = []
-  let genreNameArray = []
-  Array.from(genreSquares).forEach(function (genreSquare, index) {
-    genreNameArray.push(genreSquare.h1.textContent)
-    console.log(genreNameArray)
-    let randomColor = randomColorGen()
-    if (!usedColors.includes(randomColor)) {
-      genreSquare.style.backgroundColor = randomColor
-    }
-    usedColors.push(randomColor)
-  })
-}
-
-function searchGenres(searchString){
-}
-
-function randomColorGen () {
-  var letters = '0123456789ABCD'
-  var color = '#'
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 14)]
-  }
-  // console.log(color)
-  return color
-}
 
 export default {
-  name: 'HelloWorld',
+  name: 'Home',
   data () {
     return {
-      searchEntry: '',
-      genreJson: json
+      genres: [],
+      search: ''
+    }
+  },
+  created () {
+    this.$http.get('http://localhost:3000/genres').then(function (data) {
+      this.genres = data.body
+      console.log(this.genres)
+    })
+  },
+  computed: {
+    filteredGenres () {
+      return this.genres.filter(genre => {
+        return this.genre.name.indexOf(this.search) > -1
+      })
     }
   }
 }

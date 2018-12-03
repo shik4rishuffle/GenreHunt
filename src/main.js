@@ -3,12 +3,32 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueResource from 'vue-resource'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+Vue.use(VueResource)
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
+
+//  Filters
+Vue.filter('to-uppercase', function (value) {
+  return value.toUpperCase
+})
+
+//  Custom Directives
+Vue.directive('randomColor', {
+  bind (el, binding, vnode) {
+    let usedColors = []
+    let generatedColor = '#' + Math.random().toString().slice(2, 8)
+
+    if (!usedColors.includes(generatedColor)) {
+      el.style.backgroundColor = generatedColor
+      usedColors.push(generatedColor)
+    }
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({
